@@ -1,0 +1,11 @@
+{% extends "tickets/base.html" %}
+{% block content %}
+    <h1> Add ticket page </h1>
+    <br/><br/>
+        <h5>Confirm delete ticket item: {{ item.numb }} </h5>
+    <form action="{% url 'delete_ticket' item.id %}" method="POST">
+        {% csrf_token %}
+        <a class="btn btn-warning" href="{% url 'tickets' %}">Cancel</a>
+        <input class="btn btn-danger" type="submit" name="Confirm">
+    </form>
+{% endblock content %}

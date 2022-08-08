@@ -1,0 +1,53 @@
+{% extends "tickets/base.html" %}
+{% block content %}
+    <h1>Tickets dashboard</h1>
+
+<br>
+
+	<div class="col-lg-14">
+		<hr>
+		<div class="card card-body">
+<!--			<a class="btn btn-primary  btn-sm btn-block" href="">Add New Ticket</a>-->
+            <hr>
+			<table class="table table-striped table-lg">
+				<tr>
+					<th>ID</th>
+					<th>Title</th>
+					<th >Description</th>
+					<th>Date Created</th>
+					<th>Status</th>
+                    <th>Urgency</th>
+                    <th>Status Date</th>
+                    <th>Owner</th>
+					{% if user.is_staff %}
+					<th>Update</th>
+					<th>Archive</th>
+					{% endif %}
+				</tr>
+
+				{% for item in all_tickets %}
+				<tr>
+					<td width="50px">{{ item.numb }}</td>
+					<td width="180px">{{ item.title }}</td>
+					<td width="250px">{{ item.description }}</td>
+					<td width="120px">{{ item.date_created }}</td>
+					<td width="80px">{{ item.status }}</td>
+					<td width="80px">{{ item.urgency }}</td>
+					<td width="120px">{{ item.status_date }}</td>
+					<td width="80px">{{ item.owner }}</td>
+					{% if user.is_staff %}
+					<td width="80px"><a class="btn btn-sm btn-secondary" href="{% url 'update_ticket' item.id %}">Update</td>
+					<td width="80px"><a class="btn btn-sm btn-light" href="{% url 'delete_ticket' item.id %}">Delete</td>
+					{% endif %}
+				</tr>
+
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock content %}
+

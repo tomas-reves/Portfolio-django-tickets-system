@@ -1,0 +1,31 @@
+{% extends "tickets/base.html" %}
+{% block content %}
+
+<h1> Issues Tickets Management System </h1>
+<hr>
+<br>
+<div>
+    <h5> Welcome to the issues management system!</h5>
+    <br>
+    <p>Instructions:
+        <ol type="1">
+            <li>You need to have an account to submit and access existing tickets.</li>
+            <li>You can review tickets that you submitted in My Tickets.</li>
+            <li>Admins (staff) can review the newly tickets and update them accordingly: update tickets,
+                set status date, assigned owner of the ticket, delete tickets.</li>
+            <li>Only admins can be owners, but admins can submit tickets.</li>
+            <li>Admins can review tickets that are assigned to them in Assigned Tickets tab.</li>
+            <li>Admins list is here:</li>
+                    <form >
+                        {{ form.as_p }}
+                    </form>
+
+            <li>For all admins and users, except <i>tomas-reves</i> (superuser), password is set to <i>testpassword</i>. Please use for testing.</li>
+        </ol>
+
+    </p>
+
+</div>
+
+{% endblock content %}
+

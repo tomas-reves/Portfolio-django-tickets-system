@@ -1,0 +1,43 @@
+{% extends "tickets/base.html" %}
+{% block content %}
+    <h1>Tickets created by user: {{user}}</h1>
+
+<br>
+
+	<div class="col-lg-14">
+		<hr>
+		<div class="card card-body">
+<!--			<a class="btn btn-primary  btn-sm btn-block" href="">Add New Ticket</a>-->
+            <hr>
+			<table class="table table-striped table-lg">
+				<tr>
+					<th>ID</th>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Date Created</th>
+					<th>Status</th>
+                    <th>Urgency</th>
+                    <th>Created by</th>
+                    <th>Owner</th>
+				</tr>
+				{% for item in all_tickets %}
+					<tr>
+						<td>{{ item.numb }}</td>
+						<td>{{ item.title }}</td>
+						<td>{{ item.description }}</td>
+						<td>{{ item.date_created }}</td>
+						<td>{{ item.status }}</td>
+						<td>{{ item.urgency }}</td>
+						<td>{{ item.user_ticket_creator }}</td>
+						<td>{{ item.owner }}</td>
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock content %}
+
