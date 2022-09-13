@@ -9,7 +9,7 @@ class DateInput(forms.DateInput):
 class TicketForm(ModelForm):
     class Meta:
         model = Ticket
-        fields = ('numb', 'title', 'description', 'urgency', 'user_ticket_creator')
+        fields = ('numb', 'title', 'description', 'urgency',)
 
         labels = {
             'user_ticket_creator': 'Your Username',
