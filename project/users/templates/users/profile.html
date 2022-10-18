@@ -1,6 +1,32 @@
 {% extends "tickets/base.html" %}
 {% block content %}
+{% load static %}
 
-    <h1>{{user.username}}</h1>
+
+
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{user.profile.profile_picture }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ user.username }}</h2>
+          <h4>Employee ID: {{ user.profile.employee_id }}</h4>
+          <p class="text-secondary">{{ user.first_name }}</p>
+          <p class="text-secondary">{{ user.last_name }}</p>
+          <p class="text-secondary">{{ user.email }}</p>
+            <p class="text-secondary">{{ user.profile.departament }}</p>
+            <p class="text-secondary">{{ user.profile.position }}</p>
+
+
+        </div>
+      </div>
+      <!-- FORM HERE -->
+    </div>
+
+
+            {{user.profile.profile_picture.url}}
+
+
+
+
 
 {% endblock content %}
