@@ -1,0 +1,15 @@
+{% extends "tickets/base.html" %}
+{% block content %}
+    <h1> Ticket update page </h1>
+    <br/><br/>
+    {% if submitted %}
+        You successfully submitted! Add another <a href="/add_ticket">ticket</a>.
+    {% else %}
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit" class="btn btn-secondary">
+        </form>
+    <br/><br/>
+    {% endif %}
+{% endblock content %}

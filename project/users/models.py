@@ -14,7 +14,8 @@ departaments_list = (('Sales', 'Sales'), ('Marketing', 'Marketing'), ('Operation
                      ('Finance', 'Finance'), ('Human Resources', 'Human Resources'))
 
 class Position(models.Model):
-    position = models.CharField(max_length=100, blank=True, null=True)
+    id = models.AutoField(primary_key=True)
+    position = models.CharField(max_length=50, blank=True, null=True)
 
     @classmethod
     def create(cls, position):
@@ -26,17 +27,23 @@ class Position(models.Model):
         return f"{self.position}"
 
 class Department(models.Model):
-    departament = models.CharField(max_length=100, blank=True, null=True)
+    id = models.AutoField(primary_key=True)
+    department = models.CharField(max_length=50, blank=True, null=True)
+
+    @classmethod
+    def create(cls, department):
+        dep = cls(department=department)
+        return dep
 
     def __str__(self):
-        return f"{self.departament}"
+        return f"{self.department}"
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     employee_id = models.CharField(max_length=50, default=employee_id_generator)
     position = models.CharField(max_length=100, null=True, choices=positions_list, blank=True)
     departament = models.CharField(max_length=100, null=True, choices=departaments_list, blank=True)
-    profile_picture = models.ImageField(null=True, blank=True, default='default.jpg', upload_to='users/templates/profile_imgs')
+    profile_picture = models.ImageField(null=True, blank=True, default='users\\templates\profile_imgs\default.jpg', upload_to='templates\profile_imgs')
 
     def __str__(self):
         return f"{self.user.username} profilis"

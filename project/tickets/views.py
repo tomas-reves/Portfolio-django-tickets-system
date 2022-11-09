@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from .models import *
 from .forms import TicketForm, TicketUpdateForm, AdminList
 
@@ -18,14 +19,10 @@ def user_my_tickets_view(request):
     all_tickets = Ticket.objects.filter(user_ticket_creator=request.user)
     return render(request, 'tickets/my_tickets.html', {'all_tickets': all_tickets})
 
-@login_required
+@staff_member_required
 def assigned_tickets_view(request):
     all_tickets = Ticket.objects.filter(owner=request.user)
     return render(request, 'tickets/assigned_tickets.html', {'all_tickets': all_tickets})
-
-
-def archive(request):
-    return render(request, 'tickets/archive.html')
 
 @login_required
 def add_ticket(request):
@@ -43,7 +40,7 @@ def add_ticket(request):
             submitted = True
     return render(request, 'tickets/add_ticket.html', {'form':form, 'submitted':submitted})
 
-@login_required
+@staff_member_required
 def update_ticket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     form = TicketUpdateForm(instance=ticket)
@@ -55,9 +52,9 @@ def update_ticket(request, pk):
             return redirect('/tickets')
 
     context = {'form':form}
-    return render(request, 'tickets/add_ticket.html', context)
+    return render(request, 'tickets/update_ticket.html', context)
 
-@login_required()
+@staff_member_required
 def delete_ticket(request, pk):
     ticket = Ticket.objects.get(id=pk)
     if request.method == 'POST':
