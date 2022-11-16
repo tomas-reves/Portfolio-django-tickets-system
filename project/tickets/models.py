@@ -4,6 +4,7 @@ from django.utils import timezone
 import string
 from django.contrib.auth.models import User
 
+
 def id_gen():
     rand_letter = choice(string.ascii_letters).upper()
     rand_int = randint(1000, 9999)
@@ -13,6 +14,7 @@ class Ticket(models.Model):
 
     STATUS_CHOICES = (('Open', 'Open'), ('Pending', 'Pending'), ('Resolved', 'Resolved'), ('Closed', 'Closed'))
     URGENCY_CHOICES = (('Urgent', 'Urgent'), ('High', 'High'), ('Moderate', 'Moderate'), ('Low', 'Low'))
+
 
     def all_users_list():
         all_users = User.objects.values()

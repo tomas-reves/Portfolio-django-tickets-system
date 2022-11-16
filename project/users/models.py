@@ -7,15 +7,9 @@ def employee_id_generator():
     rand_int = randint(100000, 999999)
     return rand_int
 
-
-positions_list = (('Specialist', 'Specialist'), ('Sr Specialist', 'Sr Specialist'), ('Analyst', 'Analyst'),
-                  ('Sr Analyst', 'Sr Analyst'), ('Manager', 'Manager'))
-departaments_list = (('Sales', 'Sales'), ('Marketing', 'Marketing'), ('Operations', 'Operations'),
-                     ('Finance', 'Finance'), ('Human Resources', 'Human Resources'))
-
 class Position(models.Model):
     id = models.AutoField(primary_key=True)
-    position = models.CharField(max_length=50, blank=True, null=True)
+    position = models.CharField(max_length=50, blank=False, null=True)
 
     @classmethod
     def create(cls, position):
@@ -28,7 +22,7 @@ class Position(models.Model):
 
 class Department(models.Model):
     id = models.AutoField(primary_key=True)
-    department = models.CharField(max_length=50, blank=True, null=True)
+    department = models.CharField(max_length=50, blank=False, null=True)
 
     @classmethod
     def create(cls, department):
@@ -38,12 +32,38 @@ class Department(models.Model):
     def __str__(self):
         return f"{self.department}"
 
+
 class Profile(models.Model):
+
+    def all_departments_list():
+        all_departments = Department.objects.values()
+        departments_tuple = []
+        for department in all_departments:
+            departments_lists_items = []
+            departments_lists_items.append(department['department'])
+            departments_lists_items.append(department['department'])
+            departments_lists_items = tuple(departments_lists_items)
+            departments_tuple.append(departments_lists_items)
+        departments_tuple = tuple(departments_tuple)
+        return departments_tuple
+
+    def all_positions_list():
+        all_positions = Position.objects.values()
+        positions_tuple = []
+        for position in all_positions:
+            positions_lists_items = []
+            positions_lists_items.append(position['position'])
+            positions_lists_items.append(position['position'])
+            positions_lists_items = tuple(positions_lists_items)
+            positions_tuple.append(positions_lists_items)
+        positions_tuple = tuple(positions_tuple)
+        return positions_tuple
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     employee_id = models.CharField(max_length=50, default=employee_id_generator)
-    position = models.CharField(max_length=100, null=True, choices=positions_list, blank=True)
-    departament = models.CharField(max_length=100, null=True, choices=departaments_list, blank=True)
-    profile_picture = models.ImageField(null=True, blank=True, default='users\\templates\profile_imgs\default.jpg', upload_to='templates\profile_imgs')
+    position = models.CharField(max_length=100, null=True, choices=all_positions_list(), blank=True)
+    departament = models.CharField(max_length=100, null=True, choices=all_departments_list(), blank=True)
+    profile_picture = models.ImageField(null=True, blank=True, default='default.jpg', upload_to='templates\profile_imgs')
 
     def __str__(self):
         return f"{self.user.username} profilis"
