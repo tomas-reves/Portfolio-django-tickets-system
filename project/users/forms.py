@@ -22,7 +22,21 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['position', 'departament', 'profile_picture']
+        fields = ['position', 'department', 'profile_picture']
+
+    position = forms.ModelChoiceField(
+        queryset=Position.objects.all(),
+        to_field_name='position',
+        required=True,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
+    department = forms.ModelChoiceField(
+        queryset=Department.objects.all(),
+        to_field_name='department',
+        required=True,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
 
 class PositionsUpdateForm(forms.ModelForm):
     class Meta:

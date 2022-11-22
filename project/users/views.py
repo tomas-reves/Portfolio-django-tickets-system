@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, DepartmentsUpdateForm, PositionsUpdateForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
-from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.models import User
-from .models import Profile, Department, Position
+from .models import Profile
 
 
 def register(request):
@@ -33,7 +32,7 @@ def profile(request):
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request, "Updates")
+            messages.success(request, "Profile updated!")
             return redirect('profile')
 
     else:
@@ -42,7 +41,7 @@ def profile(request):
 
         context = {
             'u_form': u_form,
-            'p_form': p_form
+            'p_form': p_form,
         }
 
     return render(request, 'users/profile.html', context=context)

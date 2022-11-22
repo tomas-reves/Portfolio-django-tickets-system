@@ -10,36 +10,35 @@ def id_gen():
     rand_int = randint(1000, 9999)
     return rand_letter + str(rand_int)
 
-class Ticket(models.Model):
+def all_users_list():
+    all_users = User.objects.values()
+    users_tuple = []
+    for user in all_users:
+        users_lists_items = []
+        users_lists_items.append(user['username'])
+        users_lists_items.append(user['username'])
+        users_lists_items = tuple(users_lists_items)
+        users_tuple.append(users_lists_items)
+    users_tuple = tuple(users_tuple)
+    return users_tuple
 
-    STATUS_CHOICES = (('Open', 'Open'), ('Pending', 'Pending'), ('Resolved', 'Resolved'), ('Closed', 'Closed'))
-    URGENCY_CHOICES = (('Urgent', 'Urgent'), ('High', 'High'), ('Moderate', 'Moderate'), ('Low', 'Low'))
-
-
-    def all_users_list():
-        all_users = User.objects.values()
-        users_tuple = []
-        for user in all_users:
+def admin_users_list():
+    all_users = User.objects.values()
+    users_tuple = []
+    for user in all_users:
+        if user['is_staff'] == True:
             users_lists_items = []
             users_lists_items.append(user['username'])
             users_lists_items.append(user['username'])
             users_lists_items = tuple(users_lists_items)
             users_tuple.append(users_lists_items)
-        users_tuple = tuple(users_tuple)
-        return users_tuple
+        admin_users_tuple = tuple(users_tuple)
+    return admin_users_tuple
 
-    def admin_users_list():
-        all_users = User.objects.values()
-        users_tuple = []
-        for user in all_users:
-            if user['is_staff'] == True:
-                users_lists_items = []
-                users_lists_items.append(user['username'])
-                users_lists_items.append(user['username'])
-                users_lists_items = tuple(users_lists_items)
-                users_tuple.append(users_lists_items)
-            admin_users_tuple = tuple(users_tuple)
-        return admin_users_tuple
+class Ticket(models.Model):
+
+    STATUS_CHOICES = (('Open', 'Open'), ('Pending', 'Pending'), ('Resolved', 'Resolved'), ('Closed', 'Closed'))
+    URGENCY_CHOICES = (('Urgent', 'Urgent'), ('High', 'High'), ('Moderate', 'Moderate'), ('Low', 'Low'))
 
     id = models.IntegerField(primary_key=True)
     user_ticket_creator = models.CharField(max_length=50, null=True, choices=all_users_list())

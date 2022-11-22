@@ -31,7 +31,7 @@ def add_ticket(request):
         form = TicketForm(request.POST)
         if form.is_valid():
             form.instance.user_ticket_creator = request.user.username
-            print(form.instance.user_ticket_creator)
+            # print(form.instance.user_ticket_creator)
             form.save()
             return HttpResponseRedirect('/add_ticket?submitted=True')
     else:

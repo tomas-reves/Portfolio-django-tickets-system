@@ -35,34 +35,10 @@ class Department(models.Model):
 
 class Profile(models.Model):
 
-    def all_departments_list():
-        all_departments = Department.objects.values()
-        departments_tuple = []
-        for department in all_departments:
-            departments_lists_items = []
-            departments_lists_items.append(department['department'])
-            departments_lists_items.append(department['department'])
-            departments_lists_items = tuple(departments_lists_items)
-            departments_tuple.append(departments_lists_items)
-        departments_tuple = tuple(departments_tuple)
-        return departments_tuple
-
-    def all_positions_list():
-        all_positions = Position.objects.values()
-        positions_tuple = []
-        for position in all_positions:
-            positions_lists_items = []
-            positions_lists_items.append(position['position'])
-            positions_lists_items.append(position['position'])
-            positions_lists_items = tuple(positions_lists_items)
-            positions_tuple.append(positions_lists_items)
-        positions_tuple = tuple(positions_tuple)
-        return positions_tuple
-
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     employee_id = models.CharField(max_length=50, default=employee_id_generator)
-    position = models.CharField(max_length=100, null=True, choices=all_positions_list(), blank=True)
-    departament = models.CharField(max_length=100, null=True, choices=all_departments_list(), blank=True)
+    position = models.CharField(max_length=100, null=True, blank=True)
+    department = models.CharField(max_length=100, null=True, blank=True)
     profile_picture = models.ImageField(null=True, blank=True, default='default.jpg', upload_to='templates\profile_imgs')
 
     def __str__(self):
