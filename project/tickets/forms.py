@@ -1,12 +1,12 @@
 from django import forms
-from django.forms import ModelForm
 from .models import Ticket
+from django.contrib.auth.models import User
 
 class DateInput(forms.DateInput):
     input_type = 'date'
 
 
-class TicketForm(ModelForm):
+class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ('numb', 'title', 'description', 'urgency',)
@@ -35,7 +35,14 @@ class TicketForm(ModelForm):
             'owner': forms.Select(attrs={'class':'form-control', 'style': 'width:500px'})
         }
 
-class TicketUpdateForm(ModelForm):
+        user_ticket_creator = forms.ModelChoiceField(
+            queryset=User.objects.all(),
+            to_field_name='user_ticket_creator',
+            required=True,
+            widget=forms.Select(attrs={'class': 'form-control'})
+        )
+
+class TicketUpdateForm(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ('numb', 'title', 'description', 'date_created', 'status', 'urgency', 'status_date', 'user_ticket_creator', 'owner')
@@ -64,7 +71,32 @@ class TicketUpdateForm(ModelForm):
             'owner': forms.Select(attrs={'class':'form-control', 'style': 'width:500px'})
         }
 
-class AdminList(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(TicketUpdateForm, self).__init__(*args, **kwargs)
+
+        all_users = User.objects.values()
+        users_tuple = []
+        admin_tuple = []
+        for user in all_users:
+            users_lists_items = []
+            users_lists_items.append(user['username'])
+            users_lists_items.append(user['username'])
+            users_lists_items = tuple(users_lists_items)
+            users_tuple.append(users_lists_items)
+            if user['is_staff'] == True:
+                admin_items = []
+                admin_items.append(user['username'])
+                admin_items.append(user['username'])
+                admin_items = tuple(admin_items)
+                admin_tuple.append(admin_items)
+            admin_users_tuple = tuple(users_tuple)
+        users_tuple = tuple(users_tuple)
+        admin_tuple = tuple(admin_tuple)
+        self.fields['user_ticket_creator'].choices = users_tuple
+        self.fields['owner'].choices = admin_tuple
+
+
+class AdminList(forms.ModelForm):
     class Meta:
         model = Ticket
         fields = ('owner',)
