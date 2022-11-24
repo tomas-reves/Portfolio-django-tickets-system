@@ -6,7 +6,7 @@ from .models import *
 from .forms import TicketForm, TicketUpdateForm, AdminList
 
 def home(request):
-    form = AdminList(request.POST or None)
+    form = AdminList(request.POST)
     return render(request, 'tickets/home.html', {'form':form})
 
 @login_required

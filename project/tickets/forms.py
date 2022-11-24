@@ -102,3 +102,19 @@ class AdminList(forms.ModelForm):
         fields = ('owner',)
         labels = {'owner': ''}
         widgets = {'owner': forms.Select(attrs={'class':'form-control', 'style': 'width:500px', 'required': 'False'})}
+
+    def __init__(self, *args, **kwargs):
+        super(AdminList, self).__init__(*args, **kwargs)
+
+        all_users = User.objects.values()
+        users_tuple = []
+        for user in all_users:
+            if user['is_staff'] == True:
+
+                users_lists_items = []
+                users_lists_items.append(user['username'])
+                users_lists_items.append(user['username'])
+                users_lists_items = tuple(users_lists_items)
+                users_tuple.append(users_lists_items)
+        users_tuple = tuple(users_tuple)
+        self.fields['owner'].choices = users_tuple
