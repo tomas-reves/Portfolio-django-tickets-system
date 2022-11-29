@@ -24,15 +24,15 @@ class TicketForm(forms.ModelForm):
         }
 
         widgets = {
-            'user_ticket_creator': forms.Select(attrs={'class':'form-control',  'style': 'width:250px'}),
-            'numb': forms.TextInput(attrs={'class':'form-control',  'style': 'width:100px', 'readonly':'readonly'}),
-            'title': forms.TextInput(attrs={'class':'form-control', 'style': 'width:500px'}),
-            'description': forms.TextInput(attrs={'class':'form-control', 'style': 'width:500px'}),
-            'date_created': DateInput(attrs={'class':'form-control', 'style': 'width:200px'}),
-            'status': forms.Select(attrs={'class':'form-control', 'style': 'width:500px'}),
-            'urgency': forms.Select(attrs={'class':'form-control', 'style': 'width:500px'}),
-            'status_date': DateInput(attrs={'class':'form-control', 'style': 'width:200px'}),
-            'owner': forms.Select(attrs={'class':'form-control', 'style': 'width:500px'})
+            'user_ticket_creator': forms.Select(attrs={'class': 'form-control',  'style': 'width:250px'}),
+            'numb': forms.TextInput(attrs={'class': 'form-control',  'style': 'width:100px', 'readonly': 'readonly'}),
+            'title': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px'}),
+            'description': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px'}),
+            'date_created': DateInput(attrs={'class': 'form-control', 'style': 'width:200px'}),
+            'status': forms.Select(attrs={'class': 'form-control', 'style': 'width:500px'}),
+            'urgency': forms.Select(attrs={'class': 'form-control', 'style': 'width:500px'}),
+            'status_date': DateInput(attrs={'class': 'form-control', 'style': 'width:200px'}),
+            'owner': forms.Select(attrs={'class': 'form-control', 'style': 'width:500px'})
         }
 
         user_ticket_creator = forms.ModelChoiceField(
@@ -55,20 +55,20 @@ class TicketUpdateForm(forms.ModelForm):
             'status': 'Status',
             'urgency': 'Urgency',
             'status_date': 'Status Date',
-            'user_ticket_creator':'Created By',
+            'user_ticket_creator': 'Created By',
             'owner': 'Owner'
         }
 
         widgets = {
-            'numb': forms.TextInput(attrs={'class':'form-control',  'style': 'width:500px', 'readonly':'readonly'}),
-            'title': forms.TextInput(attrs={'class':'form-control', 'style': 'width:500px'}),
-            'description': forms.TextInput(attrs={'class':'form-control', 'style': 'width:500px'}),
-            'date_created': DateInput(attrs={'class':'form-control', 'style': 'width:200px'}),
-            'status': forms.Select(attrs={'class':'form-control', 'style': 'width:500px'}),
-            'urgency': forms.Select(attrs={'class':'form-control', 'style': 'width:500px'}),
-            'status_date': DateInput(attrs={'class':'form-control', 'style': 'width:200px'}),
-            'user_ticket_creator': forms.Select(attrs={'class':'form-control', 'style': 'width:500px'}),
-            'owner': forms.Select(attrs={'class':'form-control', 'style': 'width:500px'})
+            'numb': forms.TextInput(attrs={'class': 'form-control',  'style': 'width:500px', 'readonly': 'readonly'}),
+            'title': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px'}),
+            'description': forms.TextInput(attrs={'class': 'form-control', 'style': 'width:500px'}),
+            'date_created': DateInput(attrs={'class': 'form-control', 'style': 'width:200px'}),
+            'status': forms.Select(attrs={'class': 'form-control', 'style': 'width:500px'}),
+            'urgency': forms.Select(attrs={'class': 'form-control', 'style': 'width:500px'}),
+            'status_date': DateInput(attrs={'class': 'form-control', 'style': 'width:200px'}),
+            'user_ticket_creator': forms.Select(attrs={'class': 'form-control', 'style': 'width:500px'}),
+            'owner': forms.Select(attrs={'class': 'form-control', 'style': 'width:500px'})
         }
 
     def __init__(self, *args, **kwargs):
@@ -89,7 +89,6 @@ class TicketUpdateForm(forms.ModelForm):
                 admin_items.append(user['username'])
                 admin_items = tuple(admin_items)
                 admin_tuple.append(admin_items)
-            admin_users_tuple = tuple(users_tuple)
         users_tuple = tuple(users_tuple)
         admin_tuple = tuple(admin_tuple)
         self.fields['user_ticket_creator'].choices = users_tuple
@@ -101,7 +100,7 @@ class AdminList(forms.ModelForm):
         model = Ticket
         fields = ('owner',)
         labels = {'owner': ''}
-        widgets = {'owner': forms.Select(attrs={'class':'form-control', 'style': 'width:500px', 'required': 'False'})}
+        widgets = {'owner': forms.Select(attrs={'class': 'form-control', 'style': 'width:500px', 'required': 'False'})}
 
     def __init__(self, *args, **kwargs):
         super(AdminList, self).__init__(*args, **kwargs)

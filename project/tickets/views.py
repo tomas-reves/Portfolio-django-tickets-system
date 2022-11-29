@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from .models import *
@@ -8,6 +9,17 @@ from .forms import TicketForm, TicketUpdateForm, AdminList
 def home(request):
     form = AdminList(request.POST)
     return render(request, 'tickets/home.html', {'form':form})
+
+@login_required
+def search(request):
+
+    query = request.GET.get('query')
+    search_results = Ticket.objects.filter(Q(title__icontains=query) | Q(description__icontains=query) | Q(numb__icontains=query))
+    context = {
+        'tickets': search_results,
+        'query': query,
+    }
+    return render(request, 'tickets/search.html', context=context)
 
 @login_required
 def user_tickets_view(request):

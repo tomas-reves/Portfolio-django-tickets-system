@@ -35,6 +35,9 @@
               {% if user.is_staff %}
               <a class="nav-item nav-link" href="/assigned_tickets">Assigned Tickets</a>
               {% endif %}
+               <form action="{% url 'search' %}" class="form-inline my-2 my-md-0">
+              <input name="query" class="form-control" type="text" placeholder="Search">
+                </form>
 
 
           </div>
