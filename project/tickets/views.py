@@ -8,7 +8,7 @@ from .forms import TicketForm, TicketUpdateForm, AdminList
 
 def home(request):
     form = AdminList(request.POST)
-    return render(request, 'tickets/home.html', {'form':form})
+    return render(request, 'tickets/home.html', {'form': form})
 
 @login_required
 def search(request):
@@ -50,7 +50,7 @@ def add_ticket(request):
         form = TicketForm
         if 'submitted' in request.GET:
             submitted = True
-    return render(request, 'tickets/add_ticket.html', {'form':form, 'submitted':submitted})
+    return render(request, 'tickets/add_ticket.html', {'form': form, 'submitted': submitted})
 
 @staff_member_required
 def update_ticket(request, pk):
@@ -63,7 +63,7 @@ def update_ticket(request, pk):
             form.save()
             return redirect('/tickets')
 
-    context = {'form':form}
+    context = {'form': form}
     return render(request, 'tickets/update_ticket.html', context)
 
 @staff_member_required
@@ -72,5 +72,5 @@ def delete_ticket(request, pk):
     if request.method == 'POST':
         ticket.delete()
         return redirect('/tickets')
-    context= {'item': ticket}
+    context = {'item': ticket}
     return render(request, 'tickets/delete.html', context)

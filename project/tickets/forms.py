@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 class DateInput(forms.DateInput):
     input_type = 'date'
 
-
 class TicketForm(forms.ModelForm):
     class Meta:
         model = Ticket

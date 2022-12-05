@@ -2,7 +2,7 @@
 {% block content %}
 
 <br>
-
+	{% if tickets %}
 	<div class="col-lg-14">
 		<hr>
 		<div class="card card-body">
@@ -22,7 +22,7 @@
 					<th>Update</th>
 					<th>Archive</th>
 				</tr>
-				{% if tickets %}
+
 				{% for ticket in tickets %}
 					<tr>
 						<td width="50px">{{ ticket.numb }}</td>

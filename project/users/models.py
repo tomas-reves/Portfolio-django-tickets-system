@@ -16,7 +16,6 @@ class Position(models.Model):
         position = cls(position=position)
         return position
 
-
     def __str__(self):
         return f"{self.position}"
 
